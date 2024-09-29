@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yt/utility/custom_text.dart';
 import 'package:yt/video_view.dart';
 
 void main() {
@@ -32,7 +33,28 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const VideoPlayerScreen(),
+      home: const MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: OutlinedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const VideoPlayerScreen(),
+                  ));
+            },
+            child: const RefractedTextWidget(text: "Play video")),
+      ),
     );
   }
 }

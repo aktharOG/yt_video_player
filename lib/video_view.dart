@@ -10,11 +10,9 @@ import 'package:yt/utility/custom_text.dart';
 bool isFullScreen = false;
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen(
-      {Key? key,
-})
-      : super(key: key);
-
+  const VideoPlayerScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
@@ -31,9 +29,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // You could also trigger a video reload or reset the video player state here
   }
 
-  final  String videoUrl = "https://youtu.be/0pWsCiBvLOk?si=uhi0wUdcySI7mqZx";
+  final String videoUrl = "https://youtu.be/8Y7bYQIWcuk?si=bJhR4SypCSpvQKE6";
 
   void _initializeMethodChannel() async {
+    log("android video id : ${youTubeVideoId(videoUrl.toString())}");
     await InternetConnectivity().checking();
 
     _channel.setMethodCallHandler((MethodCall call) async {
@@ -106,7 +105,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Orientation orientation = Orientation.portrait;
   @override
   Widget build(BuildContext context) {
-   
     orientation = MediaQuery.of(context).orientation;
 
     if (orientation == Orientation.landscape) {
@@ -130,22 +128,23 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // log("https://www.youtube.com/embed/${youTubeVideoId(widget.singleLesson.url.toString())}?rel=0");
 
     return PopScope(
-    
       child: Scaffold(
         appBar: orientation == Orientation.portrait
-            ? AppBar(title: Text("video"),)
+            ? AppBar(
+                title: const Text("video"),
+              )
             : null,
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: const AssetImage("assets/images/scaffold_image.png"),
-                colorFilter: orientation == Orientation.landscape
-                    ? const ColorFilter.mode(Colors.black, BlendMode.src)
-                    : null,
-              ),
+              color: Colors.white,
+              // image: DecorationImage(
+              //   fit: BoxFit.cover,
+              // //  image: const AssetImage("assets/images/scaffold_image.png"),
+              //   colorFilter: orientation == Orientation.landscape
+              //       ? const ColorFilter.mode(Colors.black, BlendMode.src)
+              //       : null,
+              // ),
             ),
             child: Padding(
               padding: EdgeInsets.all(
@@ -166,12 +165,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                   ? MediaQuery.of(context).size.aspectRatio
                                   : 16 / 9,
                               child: Container(
-                                color: Colors.black,
+                                color: Colors.white,
                                 child: AndroidView(
                                   viewType: 'native_video_view',
                                   creationParams: {
                                     'url':
-                                        'https://www.youtube.com/embed/${youTubeVideoId(videoUrl.toString())}?rel=0&autoplay=1',
+                                        'https://www.youtube.com/embed/AiZrr7xpu0M?rel=0&autoplay=1',
                                   },
                                   creationParamsCodec:
                                       const StandardMessageCodec(),
@@ -298,7 +297,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         textWeight: FontWeight.w400,
                       ),
                     ),
-                   
                   ],
                 ],
               ),

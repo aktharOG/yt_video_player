@@ -6,7 +6,7 @@ import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformViewRegistry
-import com.ms.solutions.NativeVideoViewFactory
+import com.example.yt.NativeVideoViewFactory
 import io.flutter.embedding.engine.FlutterEngine
 import android.view.WindowManager
 
@@ -31,23 +31,7 @@ class MainActivity : FlutterActivity() {
             nativeVideoView.restoreState()
         }
 
-        flutterEngine?.dartExecutor?.binaryMessenger?.let {
-            MethodChannel(it, "video_player").setMethodCallHandler { call, result ->
-                when (call.method) {
-                    "loadUrl" -> {
-                        val url = call.argument<String>("url")
-                        val title = call.argument<String>("title")
-                        if (url != null) {
-                            val intent = Intent(this, YoutubeWebActivity::class.java)
-                            intent.putExtra("url", url)
-                            intent.putExtra("title", title)
-                            startActivity(intent)
-                        }
-                    }
-                    else -> result.notImplemented()
-                }
-            }
-        }
+       
     }
 
      override fun onSaveInstanceState(outState: Bundle) {
