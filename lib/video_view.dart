@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +137,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             : null,
         body: SafeArea(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               // image: DecorationImage(
               //   fit: BoxFit.cover,
@@ -166,15 +167,28 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                   : 16 / 9,
                               child: Container(
                                 color: Colors.white,
-                                child: AndroidView(
+                                child: Platform.isAndroid? const AndroidView(
                                   viewType: 'native_video_view',
                                   creationParams: {
                                     'url':
                                         'https://www.youtube.com/embed/AiZrr7xpu0M?rel=0&autoplay=1',
                                   },
                                   creationParamsCodec:
-                                      const StandardMessageCodec(),
-                                ),
+                                      StandardMessageCodec(),
+                                ):Container(
+                                        color: Colors.black,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              openUrl(
+                                                  'https://www.youtube.com/embed/AiZrr7xpu0M?rel=0&autoplay=1','Sampe ios yt player');
+                                            },
+                                            icon: const Icon(
+                                              CupertinoIcons.play_circle_fill,
+                                              color: Colors.blue,
+                                              size: 50,
+                                            )),
+                                      ),
+
                               ),
                             ),
                           ),
@@ -279,8 +293,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       ),
                     ),
                   if (orientation == Orientation.portrait) ...[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 20),
                       child: RefractedTextWidget(
                         text: "video title",
                         maxLines: 5,
@@ -288,8 +302,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         textWeight: FontWeight.w600,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 15),
                       child: RefractedTextWidget(
                         text: "description",
                         maxLines: 5,
